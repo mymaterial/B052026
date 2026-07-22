@@ -5,6 +5,16 @@
 > **Classification:** Internal Use Only
 
 ---
+## The Universal Three-Step Install Process
+
+Repeated explicitly as the takeaway, regardless of which of the three methods is used:
+
+1. **Install the software** (source-code compile, `dnf install`, or manual `rpm -ivh` — different mechanics, same outcome: binaries land somewhere under `/usr` or `/usr/local`).
+2. **Decide where the actual database files should live** — a custom, `postgres`-owned mount point/directory, never inside the install location itself.
+3. **Initialize, start, and log in** — `initdb -D <data_dir>`, `pg_ctl start -D <data_dir>`, `psql`.
+
+By the end of this session, three separate clusters (versions 17, 18, and 19 — one per install method) were running side by side on the same machine, each on its own port, ready to be explored further in the next session.
+
 
 ## 1. Overview
 
