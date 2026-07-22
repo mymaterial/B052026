@@ -108,7 +108,7 @@ io_method = worker     -- default; recommended, leave as-is
 
 ---
 
-## 3. Local Memory Recap and Temporary Tables
+## Local Memory Recap and Temporary Tables
 
 Quick recap of local (per-session) memory regions:
 
