@@ -9,7 +9,6 @@ This session picks up PostgreSQL's background-process architecture and works thr
 - [2. Background Writer](#2-background-writer)
 - [3. Checkpointer](#3-checkpointer)
 - [4. Background Writer vs Checkpointer — The Health Signal](#4-background-writer-vs-checkpointer--the-health-signal)
-- [5. Asynchronous I/O](#5-Asynchronous-I/O-(PostgreSQL-18)
 
 ---
 
