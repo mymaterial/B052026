@@ -241,27 +241,7 @@ GRANT kfc_dba TO kfc_dba2;
 
 ---
 
-## 10. A Likely Copy-Paste Error in the Source Steps
-
-Worth flagging directly, since it doesn't match the stated goal at the top of the activity. The `kfc_dba` grant block, as recorded, reads:
-
-```sql
-grant connect on database kfc_db to kfc_dba;
-grant usage on schema kfc_user to kfc_dba;
-grant all on all tables in schema kfc_user to kfc_dev;   -- <-- this line says kfc_dev
-```
-
-The stated goal was "grant all privileges on all tables to kfc_dba" — but the third line here re-targets `kfc_dev`, immediately after two lines correctly targeting `kfc_dba`. As written, this would mean **`kfc_dev` ends up with full (`ALL`) privileges** — identical to `kfc_dba` — while `kfc_dba` never actually receives its table-level grant at all (it only got `CONNECT` and `USAGE`). This reads like a copy-paste slip (reusing the `kfc_dev` target from the block above it) rather than something intentional. The corrected line should be:
-
-```sql
-GRANT ALL ON ALL TABLES IN SCHEMA kfc_user TO kfc_dba;
-```
-
-Worth checking your actual environment against this before treating the original sequence as correct — if it ran as written, `kfc_dev` currently has full privileges it shouldn't, and `kfc_dba` is currently missing the table-level grants it's supposed to have.
-
----
-
-## 11. Per-User Statement Auditing
+## 10. Per-User Statement Auditing
 
 ```sql
 ALTER USER kfc_dba1 SET log_statement = 'all';
@@ -283,7 +263,7 @@ ALTER USER kfc_dba2 SET search_path = kfc_user;
 
 ---
 
-## 12. Decoding log_line_prefix
+## 11. Decoding log_line_prefix
 
 ```ini
 log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '
